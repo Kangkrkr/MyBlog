@@ -1,0 +1,77 @@
+-- User Table
+DROP TABLE IF EXISTS users;
+CREATE TABLE IF NOT EXISTS users (
+                       id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                       username VARCHAR(255) NOT NULL UNIQUE, -- 사용자 이름
+                       email VARCHAR(255) NOT NULL UNIQUE,    -- 이메일
+                       password VARCHAR(255) NOT NULL,        -- 비밀번호
+                       role VARCHAR(50) NOT NULL,             -- 사용자 역할 (ADMIN/USER)
+                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 생성일
+                       active BOOLEAN DEFAULT TRUE            -- 계정 활성 상태 여부
+);
+
+-- Tag Table
+DROP TABLE IF EXISTS tag;
+CREATE TABLE IF NOT EXISTS tag (
+                     id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                     name VARCHAR(255) NOT NULL UNIQUE      -- 태그 이름
+);
+
+-- Category Table
+DROP TABLE IF EXISTS category;
+CREATE TABLE IF NOT EXISTS category (
+                          id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                          name VARCHAR(255) NOT NULL UNIQUE,    -- 카테고리 이름
+                          description TEXT                      -- 설명
+);
+
+-- Post Table
+DROP TABLE IF EXISTS post;
+CREATE TABLE IF NOT EXISTS post (
+                      id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                      title VARCHAR(255) NOT NULL,          -- 포스트 제목
+                      content TEXT NOT NULL,                -- 포스트 내용
+                      author_id BIGINT NOT NULL,            -- 작성자 ID (users 테이블 외래키)
+                      status VARCHAR(50) NOT NULL,          -- 상태 (DRAFT, PUBLISHED, DELETED)
+                      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 작성일
+                      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 수정일
+                      published_at TIMESTAMP,               -- 발행일
+                      category_id BIGINT,                   -- 카테고리 ID (category 테이블 외래키)
+                      FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE, -- 작성자 연관
+                      FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL
+);
+
+-- Post_Tag (Many-to-Many 관계 테이블)
+DROP TABLE IF EXISTS post_tags;
+CREATE TABLE IF NOT EXISTS post_tags (
+                           post_id BIGINT NOT NULL,               -- 포스트 ID
+                           tag_id BIGINT NOT NULL,                -- 태그 ID
+                           PRIMARY KEY (post_id, tag_id),         -- 복합 키
+                           FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE,
+                           FOREIGN KEY (tag_id) REFERENCES tag(id) ON DELETE CASCADE
+);
+
+-- Like Table
+DROP TABLE IF EXISTS likes;
+CREATE TABLE IF NOT EXISTS likes (
+                       id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                       post_id BIGINT NOT NULL,               -- 좋아요 대상 포스트 ID
+                       user_id BIGINT NOT NULL,               -- 좋아요를 누른 사용자 ID
+                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 좋아요 시간
+                       FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE,
+                       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                       UNIQUE (post_id, user_id)              -- 같은 사용자가 같은 포스트에 중복 좋아요 불가
+);
+
+-- Comment Table
+DROP TABLE IF EXISTS comment;
+CREATE TABLE IF NOT EXISTS comment (
+                         id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                         post_id BIGINT NOT NULL,               -- 댓글이 달린 포스트 ID
+                         author_id BIGINT NOT NULL,             -- 댓글 작성자 ID
+                         content TEXT NOT NULL,                 -- 댓글 내용
+                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 댓글 작성일
+                         deleted BOOLEAN DEFAULT FALSE,         -- 댓글 삭제 여부
+                         FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE,
+                         FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
+);

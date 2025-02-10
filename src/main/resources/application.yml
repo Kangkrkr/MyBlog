@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: MyBlog # 애플리케이션 이름 설정
+
+  datasource:
+    url: jdbc:h2:file:C:/development/h2/test # H2 데이터베이스 파일 경로 , 서버모드에서 실행..
+    driver-class-name: org.h2.Driver         # H2 데이터베이스 드라이버 클래스 이름
+    username: sa  # 데이터베이스 로그인 사용자 이름
+    password: 123 # 데이터베이스 로그인 비밀번호
+    hikari:
+      maximum-pool-size: 5
+
+  h2:
+    console:
+      path: /h2-console # H2 콘솔 접속 경로
+      enabled: true     # H2 콘솔 활성화 여부
+
+  data:
+    redis:
+      host: localhost # Redis 호스트 주소
+      port: 6379      # Redis 포트 번호
+    elasticsearch:
+      client:
+        uris: http://localhost:9200 # Elasticsearch 클라이언트 URI
+      rest:
+        uris: http://localhost:9200 # Elasticsearch REST API URI
+
+  graphql:
+    graphiql:
+      enabled: true # GraphiQL 웹 인터페이스 활성화 여부 (접속 경로: /graphiql)
+    schema:
+      locations: classpath:graphql/** # GraphQL 스키마 파일 위치
+      printer:
+        enabled: true  # 스키마 출력 활성화 여부
+    path: /graphql     # GraphQL API 엔드포인트 경로
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect # Hibernate 데이터베이스 플랫폼 설정 (H2 Dialect)
+    hibernate:
+      ddl-auto: create-drop # 데이터베이스 스키마 자동 생성 옵션 (none, create, create-drop, update, validate 중 선택)
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect # Hibernate 데이터베이스 방언 설정
+        format_sql: true  # SQL 포맷팅 활성화 여부
+        show_sql: true    # SQL 출력 여부
+    defer-datasource-initialization: true # DDL-AUTO 작업 이후에 SQL 초기화 실행
+
+  sql:
+    init:
+      mode: always  # 언제나 초기화 파일을 실행 (data.sql)
+#      schema-locations: classpath:schema.temp
+      data-locations: classpath:data.sql
+
+management:
+  health:
+    elasticsearch:
+      enabled: false # Elasticsearch 상태 확인 활성화 여부
+    reactive:
+      elasticsearch:
+        enabled: false # Reactive Elasticsearch 상태 확인 활성화 여부

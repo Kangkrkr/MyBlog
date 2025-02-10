@@ -1,0 +1,20 @@
+type Query {
+    getAllUsers: [UserGraphQLResponse!]!
+    getUser(id: ID!): UserGraphQLResponse
+}
+
+type Mutation {
+    createUser(userRequest: UserGraphQLRequest!): UserGraphQLResponse!
+}
+
+input UserGraphQLRequest {
+    username: String!
+    email: String!
+    password: String!
+}
+
+type UserGraphQLResponse {
+    id: ID!
+    username: String!
+    email: String!
+}
