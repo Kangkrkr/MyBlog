@@ -1,0 +1,105 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.4.2'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+ext {
+    springCloudVersion = "2022.0.4"
+}
+
+group = 'project'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springAiVersion', "1.0.0-M5")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-graphql'
+//    implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:14.0.0'    // 스키마 기반 방식
+    implementation 'com.graphql-java-kickstart:graphql-java-tools:13.0.1'               // 코드 기반 방식
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+    implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:3.4.4'
+    implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springframework.session:spring-session-core'
+    implementation 'org.springframework.data:spring-data-elasticsearch'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.24.3'
+    implementation 'com.querydsl:querydsl-jpa'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
+
+    // MapStruct Core 라이브러리
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    // MapStruct Processor (컴파일 시 DTO 관련 코드를 생성)
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+    annotationProcessor 'com.querydsl:querydsl-apt'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+    runtimeOnly 'com.h2database:h2'
+//    runtimeOnly 'org.postgresql:postgresql'
+    developmentOnly 'org.springframework.ai:spring-ai-spring-boot-docker-compose'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'org.springframework.ai:spring-ai-spring-boot-testcontainers'
+    testImplementation 'org.springframework.graphql:spring-graphql-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:kafka'
+//    testImplementation 'org.testcontainers:postgresql'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
+    testImplementation 'org.testcontainers:junit-jupiter:1.19.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

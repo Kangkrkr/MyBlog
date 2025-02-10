@@ -1,0 +1,70 @@
+
+networks:
+  elk-network: # 모든 ELK 스택 컴포넌트가 동일 네트워크 활용
+    driver: bridge
+
+services:
+  #  postgres:
+  #    image: 'postgres:latest'
+  #    environment:
+  #      - 'POSTGRES_DB=mydatabase'
+  #      - 'POSTGRES_PASSWORD=secret'
+  #      - 'POSTGRES_USER=myuser'
+  #    ports:
+  #      - '5432'
+  #    volumes:
+  #      - ./postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: 'redis:latest'
+    ports:
+      - '6379'
+    networks:
+      - elk-network
+
+#  elasticsearch:
+#    image: 'elasticsearch:8.9.0'
+#    environment:
+#      - discovery.type=single-node
+#      - xpack.security.enabled=false
+#    #      - ES_JAVA_OPTS="-Xms512m -Xmx512m"
+#    ports:
+#      - '9200:9200'
+#      - '9300:9300'
+#    volumes:
+#      - ./es_data:/usr/share/elasticsearch/data
+#    networks:
+#      - elk-network
+#    healthcheck:
+#      test: [ "CMD", "curl", "-f", "http://localhost:9200" ]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#
+#  kibana:
+#    image: 'kibana:8.9.0'
+#    ports:
+#      - '5601:5601'
+#    environment:
+#      - SERVER_NAME=kibana.local
+#      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+#      - SERVER_SSL_ENABLED=false
+#    depends_on:
+#      - elasticsearch
+#    networks:
+#      - elk-network
+#
+#  logstash:
+#    image: logstash:8.9.0 # 명시적인 버전
+#    ports:
+#      - "5000:5000" # Logstash가 수집하는 TCP 데이터
+#    environment:
+#      - xpack.monitoring.enabled=false
+#    #      - LS_JAVA_OPTS="-Xms256m -Xmx256m" # Java 메모리 사용량 최소화
+#    volumes:
+#      - ./logstash/config:/usr/share/logstash/config # Logstash 설정 파일 로드
+#      - ./logstash/pipeline:/usr/share/logstash/pipeline # 파이프라인 설정
+#    depends_on:
+#      - elasticsearch
+#    networks:
+#      - elk-network
