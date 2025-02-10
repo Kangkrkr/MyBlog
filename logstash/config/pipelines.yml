@@ -1,0 +1,3 @@
+# pipelines.yml
+- pipeline.id: main_pipeline
+  path.config: "./pipeline/logstash.conf"
