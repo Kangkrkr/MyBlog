@@ -26,6 +26,9 @@ spring:
         uris: http://localhost:9200 # Elasticsearch REST API URI
 
   graphql:
+    websocket:
+      path: /ws/graphql
+      keep-alive: 60s
     graphiql:
       enabled: true # GraphiQL 웹 인터페이스 활성화 여부 (접속 경로: /graphiql)
     schema:
@@ -58,3 +61,7 @@ management:
     reactive:
       elasticsearch:
         enabled: false # Reactive Elasticsearch 상태 확인 활성화 여부
+
+logging:
+  level:
+    org.springframework.web.socket: DEBUG
