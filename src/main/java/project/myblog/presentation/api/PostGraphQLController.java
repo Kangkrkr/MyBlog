@@ -4,8 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import project.myblog.application.cqrs.query.PostQueryHandler;
 import project.myblog.application.cqrs.query.UserQueryHandler;
 import project.myblog.application.dto.PostQueryResponse;
@@ -16,10 +15,9 @@ import project.myblog.presentation.mapper.GraphQLMapStructMapper;
 
 import java.util.List;
 
-@RequestMapping
-@Controller
+@RestController
 @RequiredArgsConstructor
-public class PostQueryController {
+public class PostGraphQLController {
 
     private final UserQueryHandler userQueryHandler;
     private final PostQueryHandler postQueryHandler;
