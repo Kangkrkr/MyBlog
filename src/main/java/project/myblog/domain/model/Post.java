@@ -47,6 +47,4 @@ public class Post implements Serializable {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category; // 카테고리
-
-    // Getter, Setter, Constructor
 }

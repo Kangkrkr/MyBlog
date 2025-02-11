@@ -20,10 +20,6 @@ public class Comment {
     private User author; // 작성자
 
     private String content; // 댓글 내용
-
     private LocalDateTime createdAt; // 작성 시간
-
     private boolean deleted; // 삭제된 댓글 여부
-
-    // Getter, Setter, Constructor
 }

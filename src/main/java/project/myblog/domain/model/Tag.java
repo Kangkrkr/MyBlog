@@ -15,8 +15,5 @@ public class Tag implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name; // 태그 이름
-
-    // Getter, Setter, Constructor
 }

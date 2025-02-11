@@ -21,6 +21,4 @@ public class Like {
     private User user; // 좋아요를 누른 사용자
 
     private LocalDateTime createdAt; // 좋아요 등록 시간
-
-    // Getter, Setter, Constructor
 }

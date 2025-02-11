@@ -10,15 +10,11 @@ import project.myblog.application.cqrs.query.PostQueryHandler;
 import project.myblog.application.cqrs.query.UserQueryHandler;
 import project.myblog.application.dto.PostQueryResponse;
 import project.myblog.application.dto.UserQueryResponse;
-import project.myblog.domain.model.User;
-import project.myblog.domain.repository.PostRepository;
-import project.myblog.domain.repository.UserRepository;
 import project.myblog.presentation.dto.graphql.response.PostGraphQLResponse;
 import project.myblog.presentation.dto.graphql.response.UserGraphQLResponse;
 import project.myblog.presentation.mapper.GraphQLMapStructMapper;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping
 @Controller
