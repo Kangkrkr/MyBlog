@@ -2,14 +2,10 @@ package project.myblog.application.cqrs.query;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import project.myblog.application.dto.PostQueryResponse;
 import project.myblog.application.dto.UserQueryResponse;
-import project.myblog.domain.model.Post;
 import project.myblog.domain.model.User;
 import project.myblog.domain.repository.UserRepository;
 import project.myblog.presentation.mapper.CQRSMapStructMapper;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

@@ -27,6 +27,5 @@ public class User implements Serializable {
     private Role role;       // 사용자 역할, ADMIN/USER
 
     private LocalDateTime createdAt; // 생성 시간
-
     private boolean active;  // 계정 활성 상태 여부
 }

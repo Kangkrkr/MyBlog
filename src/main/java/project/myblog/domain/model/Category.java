@@ -15,10 +15,6 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;       // 카테고리 이름
-
     private String description; // 설명
-
-    // Getter, Setter, Constructor
 }
