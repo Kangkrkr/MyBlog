@@ -39,6 +39,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-graphql'
 //    implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:14.0.0'    // 스키마 기반 방식
     implementation 'com.graphql-java-kickstart:graphql-java-tools:13.0.1'               // 코드 기반 방식
+    implementation 'com.graphql-java:graphql-java-annotations:8.0'                      // GraphQL 어노테이션
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 //    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
