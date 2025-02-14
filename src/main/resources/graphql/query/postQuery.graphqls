@@ -1,0 +1,4 @@
+extend type Query {
+    post(id: ID): PostGraphQLResponse
+    posts: [PostGraphQLResponse]
+}

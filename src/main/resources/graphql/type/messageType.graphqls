@@ -1,0 +1,5 @@
+type MessageGraphQLResponse {
+    id: String!
+    content: String
+    sender: String
+}

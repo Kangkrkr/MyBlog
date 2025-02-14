@@ -1,0 +1,3 @@
+extend type Mutation {
+    addMessage(content: String, sender: String): MessageGraphQLResponse
+}

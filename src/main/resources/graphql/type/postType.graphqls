@@ -1,0 +1,14 @@
+type PostGraphQLResponse {
+    id: ID
+    title: String
+    content: String
+    author: UserQueryResponse
+}
+
+type UserQueryResponse {
+    id: ID
+    username: String
+    email: String
+    role: String
+    active: Boolean
+}

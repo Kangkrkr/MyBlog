@@ -1,24 +1,31 @@
 package project.myblog.presentation.mapper;
 
+import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import project.myblog.application.dto.CategoryQueryResponse;
-import project.myblog.application.dto.PostQueryResponse;
-import project.myblog.application.dto.UserQueryResponse;
+import project.myblog.application.query.dto.out.category.CategoryQueryResponse;
+import project.myblog.application.query.dto.out.MessageQueryResponse;
+import project.myblog.application.query.dto.out.PostQueryResponse;
+import project.myblog.application.query.dto.out.UserQueryResponse;
+import project.myblog.domain.model.Message;
 import project.myblog.domain.model.Tag;
-import project.myblog.presentation.dto.graphql.response.CategoryGraphQLResponse;
-import project.myblog.presentation.dto.graphql.response.PostGraphQLResponse;
-import project.myblog.presentation.dto.graphql.response.TagGraphQLResponse;
-import project.myblog.presentation.dto.graphql.response.UserGraphQLResponse;
+import project.myblog.presentation.query.dto.out.graphql.CategoryGraphQLQueryResponse;
+import project.myblog.presentation.query.dto.out.graphql.MessageGraphQLQueryResponse;
+import project.myblog.presentation.query.dto.out.graphql.PostGraphQLQueryResponse;
+import project.myblog.presentation.query.dto.out.graphql.TagGraphQLQueryResponse;
+import project.myblog.presentation.query.dto.out.graphql.UserGraphQLQueryResponse;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = false))
 public interface GraphQLMapStructMapper {
 
-    UserGraphQLResponse toUserGraphQLResponse(UserQueryResponse user);
+    UserGraphQLQueryResponse toUserGraphQLResponse(UserQueryResponse user);
 
     @Mapping(target = "author", source = "author")
-    PostGraphQLResponse toPostGraphQLResponse(PostQueryResponse post);
+    PostGraphQLQueryResponse toPostGraphQLResponse(PostQueryResponse post);
 
-    TagGraphQLResponse toTagGraphQLResponse(Tag tag);
-    CategoryGraphQLResponse toCategoryGraphQLResponse(CategoryQueryResponse category);
+    TagGraphQLQueryResponse toTagGraphQLResponse(Tag tag);
+    CategoryGraphQLQueryResponse toCategoryGraphQLResponse(CategoryQueryResponse category);
+
+    MessageGraphQLQueryResponse toMessageGraphQLResponse(MessageQueryResponse message);
+    MessageGraphQLQueryResponse toMessageGraphQLResponse(Message message);
 }
